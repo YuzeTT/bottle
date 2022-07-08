@@ -7,7 +7,7 @@ export default {
         {
           title: "收益炫耀",
           path: "/img_income",
-          state: 0,
+          state: "info",
         },
       ],
     },

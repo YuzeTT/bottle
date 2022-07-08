@@ -39,4 +39,8 @@ html {
 .router_animate-leave-active {
   animation: rollOut 0.6s;
 }
+
+.n-card {
+  border-radius: 10px;
+}
 </style>
