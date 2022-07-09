@@ -2,12 +2,17 @@ export default {
   mode: "debug",
   tools: [
     {
-      title: ["图片生成", "Image Generation"],
+      title: ["图片生成", "发朋友圈必备"],
       list: [
         {
           title: "收益炫耀",
           path: "/img_income",
           state: "info",
+        },
+        {
+          title: "进度炫耀",
+          path: "/img_income",
+          state: "coding",
         },
       ],
     },

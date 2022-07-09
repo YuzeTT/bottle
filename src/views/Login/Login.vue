@@ -20,7 +20,7 @@ const submit = () => {
   localStorage.setItem('user_name', user_name.value?user_name.value:'匿名用户')
   loading.value = false
   message.success(
-    `${user_name.value?user_name.value:'匿名用户'}认证成功！正在跳转...`
+    `${user_name.value?user_name.value:'匿名用户'}认证成功！正在跳转...`,{ duration: 1000 }
   )
   router.push('/')
 }

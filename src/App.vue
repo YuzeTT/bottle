@@ -35,7 +35,8 @@ import Navbar from './components/Navbar.vue';
 }
 
 html {
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
+  background: #fafafa;
 }
 
 .slide-up-enter-active,
