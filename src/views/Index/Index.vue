@@ -1,10 +1,16 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import Card from '../../components/Card.vue';
 import bottleConfig from '../../bottle.config';
+
+const router = useRouter();
+const go = (path) => {
+  router.push(path);
+};
 </script>
 
 <template>
-  <div class="animate__bounceIn container">
+  <div class="container">
     <Card
       class="boxShadow"
       v-for="(item,i) in bottleConfig.tools"
@@ -20,6 +26,7 @@ import bottleConfig from '../../bottle.config';
           v-for="(button,i) in item.list"
           :key="i"
           :type="button.state"
+          @click="go(button.path)"
         >
           {{ button.title }}
         </n-button>

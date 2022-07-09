@@ -5,7 +5,12 @@ const routes = [
   {
     path: '/',
     name: 'Index',
-    component: () => import('../views/Index/Index.vue')
+    component: () => import('../views/Index/Index.vue'),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "找不到页面",
+    component: () => import("../views/NotFound/NotFound.vue"),
   },
 ]
 

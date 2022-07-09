@@ -11,7 +11,10 @@ import Navbar from './components/Navbar.vue';
   <!-- <router-view/> -->
   <Navbar/>
   <router-view v-slot="{ Component }">
-    <transition name="router_animate">
+    <transition
+      mode="out-in"
+      name="slide-up"
+    >
       <component :is="Component" />
     </transition>
   </router-view>
@@ -33,11 +36,19 @@ html {
   background: #f5f5f5;
 }
 
-.router_animate-enter-active {
-  animation: rollIn 1s;
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.25s ease-out;
 }
-.router_animate-leave-active {
-  animation: rollOut 0.6s;
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 
 .n-card {

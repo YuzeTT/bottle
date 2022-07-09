@@ -41,7 +41,8 @@ const coding = ref(false)
 }
 
 .right {
-  
+  display: flex;
+  align-items: center;
 }
 
 .logo {
