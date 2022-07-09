@@ -1,7 +1,11 @@
 <script setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMessage } from 'naive-ui'
+import axios from 'axios'
+import { Code, Diamond, CheckmarkCircleSharp } from '@vicons/ionicons5';
 import Card from '../../components/Card.vue';
+import TagText from '../../components/TagText.vue';
 import bottleConfig from '../../bottle.config';
 
 const message = useMessage()
@@ -12,6 +16,8 @@ const print = (type,text) => {
     'background:transparent'
   )
 }
+
+const hitokoto = ref('加载中...')
 
 const router = useRouter();
 const go = (path) => {
@@ -27,29 +33,85 @@ if(id===null) {
   print('DEBUG', `已登录 [${id}] `+user_name)
   message.success(`欢迎回来！${user_name}`,{ duration: 1000 })
 }
+
+// 根据时间问好
+const greet = () => {
+  const now = new Date();
+  const hour = now.getHours();
+  if(hour<6) {
+    return '凌晨好'
+  }else if(hour<12) {
+    return '上午好'
+  }else if(hour<18) {
+    return '下午好'
+  }else {
+    return '晚上好'
+  }
+}
+
+axios.get('https://v1.hitokoto.cn/?c=d&encode=text')
+  .then((data) => {
+    console.log(data);
+    hitokoto.value = data.data
+  })
+  .catch((err) => {
+    console.log(err);
+    hitokoto.value = '只要有想见面的人，自己就不再是孤单一人。'
+  });
 </script>
 
 <template>
   <div class="container">
-    <Card class="cards boxShadow" title="小工具状态说明" remarks="我觉得不说应该也知道">
-      <n-space style="align-items: center;">
-        <div style="display: flex;align-items: center;">
-          <n-badge dot type="error" />
-          <span style="padding-left: 5px;">热门</span>
-        </div>
-        <div style="display: flex;align-items: center;">
-          <n-badge dot type="info" />
-          <span style="padding-left: 5px;">推荐</span>
-        </div>
-        <div style="display: flex;align-items: center;">
-          <n-badge dot type="warning" />
-          <span style="padding-left: 5px;">会员</span>
-        </div>
-        <div style="display: flex;align-items: center;">
-          <n-badge dot color="purple" />
-          <span style="padding-left: 5px;">维护中</span>
-        </div>
-      </n-space>
+    <Card class="cards boxShadow" :title="`${user_name} ${greet()}！`">
+      <!-- <div>今天是你使用 Bottle 的第 1 天</div> -->
+      <div style="padding-bottom: 15px;" v-if="user_name==='YuzeTT'">
+        <n-space>
+          <n-tag :bordered="false" type="success">
+            站长
+            <template #icon>
+              <n-icon :component="CheckmarkCircleSharp" />
+            </template>
+          </n-tag>
+          <n-tag :bordered="false" type="info">
+            开发者
+            <template #icon>
+              <n-icon :component="Code" />
+            </template>
+          </n-tag>
+          <n-tag :bordered="false" type="warning">
+            VIP
+            <template #icon>
+              <n-icon :component="Diamond" />
+            </template>
+          </n-tag>
+        </n-space>
+      </div>
+      <div>{{ hitokoto }}</div>
+    </Card>
+    <Card class="cards boxShadow" title="公告">
+      <div style="display: flex;align-items: center">
+        <n-tag :bordered="false" style="margin-right: 15px">
+          类型
+        </n-tag>
+        <n-space style="align-items: center;">
+          <div style="display: flex;align-items: center;">
+            <n-badge dot type="error" />
+            <span style="padding-left: 5px;">热门</span>
+          </div>
+          <div style="display: flex;align-items: center;">
+            <n-badge dot type="info" />
+            <span style="padding-left: 5px;">推荐</span>
+          </div>
+          <div style="display: flex;align-items: center;">
+            <n-badge dot type="warning" />
+            <span style="padding-left: 5px;">会员</span>
+          </div>
+          <div style="display: flex;align-items: center;">
+            <n-badge dot color="purple" />
+            <span style="padding-left: 5px;">维护</span>
+          </div>
+        </n-space>
+      </div>
     </Card>
     <Card
       class="cards boxShadow"
