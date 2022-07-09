@@ -1,12 +1,32 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { useMessage } from 'naive-ui'
 import Card from '../../components/Card.vue';
 import bottleConfig from '../../bottle.config';
+
+const message = useMessage()
+const print = (type,text) => {
+  console.log(
+    `%c ${type} %c ${text}`,
+    'background:#35495e ; padding: 1px; border-radius: 3px;  color: #fff',
+    'background:transparent'
+  )
+}
 
 const router = useRouter();
 const go = (path) => {
   router.push(path);
 };
+
+const id = localStorage.getItem('id')
+const user_name = localStorage.getItem('user_name')
+if(id===null) {
+  print('DEBUG', '未登录，正在跳转 /login...')
+  router.push('/login');
+}else {
+  print('DEBUG', `已登录 [${id}] `+user_name)
+  message.success(`欢迎回来！${user_name}`,{ duration: 1000, placement: 'bottom' })
+}
 </script>
 
 <template>

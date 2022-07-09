@@ -8,8 +8,13 @@ const routes = [
     component: () => import('../views/Index/Index.vue'),
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login/Login.vue'),
+  },
+  {
     path: "/:pathMatch(.*)*",
-    name: "找不到页面",
+    name: "NotFound",
     component: () => import("../views/NotFound/NotFound.vue"),
   },
 ]

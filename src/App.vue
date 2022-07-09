@@ -9,15 +9,17 @@ import Navbar from './components/Navbar.vue';
   <!-- <img alt="Vue logo" src="./assets/logo.png" />
   <HelloWorld msg="Hello Vue 3 + Vite" /> -->
   <!-- <router-view/> -->
-  <Navbar/>
-  <router-view v-slot="{ Component }">
-    <transition
-      mode="out-in"
-      name="slide-up"
-    >
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <n-message-provider>
+    <Navbar/>
+    <router-view v-slot="{ Component }">
+      <transition
+        mode="out-in"
+        name="slide-up"
+      >
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </n-message-provider>
 </template>
 
 <style>

@@ -86,6 +86,11 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-17.0.45.tgz"
   "version" "17.0.45"
 
+"@vicons/ionicons5@^0.12.0":
+  "integrity" "sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA=="
+  "resolved" "https://registry.npmjs.org/@vicons/ionicons5/-/ionicons5-0.12.0.tgz"
+  "version" "0.12.0"
+
 "@vitejs/plugin-vue@^2.3.3":
   "integrity" "sha512-SmQLDyhz+6lGJhPELsBdzXGc+AcaT8stgkbiTFGpXPe8Tl1tJaBw1A6pxDqDuRsVkD8uscrkx3hA7QDOoKYtyw=="
   "resolved" "https://registry.npmjs.org/@vitejs/plugin-vue/-/plugin-vue-2.3.3.tgz"
@@ -558,6 +563,11 @@
   "integrity" "sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw=="
   "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-3.3.4.tgz"
   "version" "3.3.4"
+
+"nanoid@^4.0.0":
+  "integrity" "sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg=="
+  "resolved" "https://registry.npmjs.org/nanoid/-/nanoid-4.0.0.tgz"
+  "version" "4.0.0"
 
 "normalize-path@^3.0.0", "normalize-path@~3.0.0":
   "integrity" "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA=="

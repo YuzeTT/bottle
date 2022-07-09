@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+import { nanoid } from 'nanoid'
+
 const coding = ref(false)
+const id = nanoid(10)
 </script>
 
 <template>
@@ -18,6 +21,19 @@ const coding = ref(false)
       </n-button>
     </div>
   </div>
+  <n-watermark
+    v-if="coding"
+    :content="id"
+    cross
+    fullscreen
+    :font-size="16"
+    :line-height="16"
+    :width="384"
+    :height="384"
+    :x-offset="12"
+    :y-offset="60"
+    :rotate="-15"
+  />
   
 </template>
 
