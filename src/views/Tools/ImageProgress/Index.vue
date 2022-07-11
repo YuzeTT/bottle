@@ -1,23 +1,31 @@
 <script setup>
-import { ref } from 'vue';
-import { ChevronForward } from '@vicons/ionicons5';
+import { ref, reactive } from 'vue';
+import { ChevronForward, CheckmarkCircleOutline, TimeOutline, Reload, StatsChart, SettingsSharp } from '@vicons/ionicons5';
 import Card from '../../../components/Card.vue';
 import TagText from '../../../components/TagText.vue';
 
 const customValue = ref([
   {
-    key: '慌热暑假',
-    value: [20,100],
+    key: '',
+    value: [null,null],
   }
 ]);
 
-const isShowTotal = ref(true);
+const card = reactive({
+  title: '进度统计',
+  isShowTotal: true,
+  isShowEdit: true,
+});
 
 const onCreate = () => {
   return {
     key: '',
     value: [null,null],
   };
+}
+
+function onGenerate() {
+  card.isShowEdit = false
 }
 
 const sum = () => {
@@ -35,12 +43,25 @@ const OkNumber = () => {
   });
   return total;
 }
+
 </script>
 
 <template>
   <div>
-    <Card title="条目配置">
-      <n-dynamic-input v-model:value="customValue" :on-create="onCreate" show-sort-button>
+    <Card title="条目配置" v-show="card.isShowEdit">
+      <template #icon>
+        <n-icon style="vertical-align: -10%;">
+          <SettingsSharp />
+        </n-icon>
+      </template>
+      <div class="from">
+        <TagText style="margin-right: 5px;">标题</TagText>
+        <n-input v-model:value="card.title" type="text" placeholder="基本的 Input" />
+      </div>
+      <n-divider >
+        统计条目
+      </n-divider>
+      <n-dynamic-input v-model:value="customValue" :on-create="onCreate" show-sort-button style="margin-top: 10px;">
         <template #create-button-default>
           点击新增
         </template>
@@ -77,13 +98,14 @@ const OkNumber = () => {
           </div>
         </template>
       </n-dynamic-input>
+      <n-divider/>
       <div style="margin-top: 15px;">
-        <n-checkbox v-model:checked="isShowTotal">
+        <n-checkbox v-model:checked="card.isShowTotal">
           显示总计
         </n-checkbox>
       </div>
       <div style="margin-top: 15px;">
-        <n-button type="primary" style="width: 100%;" icon-placement="right">
+        <n-button type="primary" style="width: 100%;" icon-placement="right" @click="onGenerate()">
           生成
           <template #icon>
             <n-icon>
@@ -92,45 +114,79 @@ const OkNumber = () => {
           </template>
         </n-button>
       </div>
-      <pre>{{ JSON.stringify(customValue, null, 2) }}</pre>
+      <div style="margin-top: 10px;color: #767c82;text-align: center;">点击统计卡片的 <b>刷新按钮</b> 即可再次打开此卡片</div>
     </Card>
-    <div style="margin: 15px 0px"></div>
-    <Card title="进度">
-      <div>
-        <!-- <n-card
-          title="统计"
-          embedded
-          :bordered="false"
-          style="margin-bottom: 15px;"
-        >
-          
-        </n-card> -->
-        <n-grid x-gap="12" :cols="2" style="text-align: center;margin-bottom: 15px;">
+    <n-divider v-show="card.isShowEdit">
+      预览
+    </n-divider>
+    <Card :title="card.title">
+      <template v-slot:icon>
+        <n-icon style="vertical-align: -10%;">
+          <StatsChart/>
+        </n-icon>
+      </template>
+      <template v-slot:right>
+        <n-button circle style="font-size: 24px" @click="card.isShowEdit = true">
+          <n-icon>
+            <Reload />
+          </n-icon>
+        </n-button>
+      </template>
+      <div v-if="card.isShowTotal" style="margin-bottom: 15px;">
+        <n-grid x-gap="12" :cols="2" style="text-align: center;">
           <n-grid-item style="margin: 0 auto;padding-top: 10px;">
-            <n-statistic label="总计需要完成">
-              {{ sum() }}
+            <n-statistic label="已完成 / 总计">
+              <span style="color: #18a058">
+                {{ OkNumber() }} / {{ sum() }}
+              </span>
+              <template #prefix>
+                <n-icon color="#18a058">
+                  <CheckmarkCircleOutline />
+                </n-icon>
+              </template>
             </n-statistic>
             <br>
-            <n-statistic label="总计已完成">
-              {{ OkNumber() }}
+            <n-statistic label="待完成">
+              <span style="color: #2080f0">
+                {{ sum() - OkNumber() >= 0 ? sum() - OkNumber() : '0' }}
+              </span>
+              <template #prefix>
+                <n-icon color="#2080f0">
+                  <TimeOutline />
+                </n-icon>
+              </template>
             </n-statistic>
           </n-grid-item>
           <n-grid-item style="margin: 0 auto;">
-            <n-progress type="circle" :status="(OkNumber()/sum()*100).toFixed(0)===100?'success':flase" :percentage="(OkNumber()/sum()*100).toFixed(0)" />
+            <n-progress type="circle" :status="(OkNumber()/sum()*100)>=100?'success':'default'" :percentage="parseInt((OkNumber()/sum()*100))?parseInt((OkNumber()/sum()*100)):0" />
             <br>
             <TagText style="margin-top: 10px;font-size: 1.4rem;">已完成</TagText>
           </n-grid-item>
         </n-grid>
       </div>
-      <div class="progress" v-for="(item, i) in customValue" :key="i">
-        <TagText style="margin-right: 5px">{{ item.key }}</TagText>
-        <n-progress type="line" :percentage="(item.value[0]/item.value[1]*100).toFixed(0)" :height="12" />
-      </div>
+      <n-divider v-if="card.isShowTotal">
+        详细数据
+      </n-divider>
+      <table style="width: 100%;border: 0;">
+        <tr v-for="(item, i) in customValue" :key="i">
+          <td>
+            <TagText style="margin-right: 5px;vertical-align: -50%;" font-size="1rem">{{ item.key?item.key:'未填写' }}</TagText>
+          </td>
+          <td style="width: 100%;">
+            <n-progress type="line" :percentage="parseInt((item.value[0]/item.value[1]*100))?parseInt((item.value[0]/item.value[1]*100)):0" :height="12" />
+          </td>
+        </tr>
+      </table>
     </Card>
   </div>
 </template>
 
 <style scoped>
+.from {
+  display: flex;
+  align-items: center;
+}
+
 .progress {
   display: flex;
   align-items: center;

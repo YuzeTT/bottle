@@ -1,4 +1,6 @@
 <script setup>
+import { useSlots } from "vue";
+
 const props = defineProps({
   title: String,
   remarks: String,
@@ -11,9 +13,19 @@ const props = defineProps({
 
 <template>
   <n-card :bordered="false" :class="props.shadow?'boxShadow':''">
-    <div style="padding-bottom: 15px" v-if="title||remarks">
-      <div class="title">{{props.title}}</div>
-      <div class="remarks">{{props.remarks}}</div>
+    <div style="padding-bottom: 15px; display: flex; justify-content: space-between;" v-if="title||remarks">
+      <div>
+        <div class="title">
+          <div style="margin-right: 5px; color: #14171a;" v-if="!!useSlots().icon">
+            <slot name="icon"></slot>
+          </div>
+          {{props.title}}
+        </div>
+        <div class="remarks">{{props.remarks}}</div>
+      </div>
+      <div>
+        <slot name="right"></slot>
+      </div>
     </div>
     <slot/>
   </n-card>
@@ -25,6 +37,7 @@ const props = defineProps({
   font-weight: 500;
   color: #14171a;
   /* padding-bottom: 5px; */
+  display: flex;
 }
 
 .remarks {
