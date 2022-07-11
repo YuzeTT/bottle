@@ -14,13 +14,18 @@ const routes = [
   },
   {
     path: '/tools',
-    name: 'Login',
+    name: 'Tools',
     component: () => import('../views/Tools/Tools.vue'),
     children: [
       {
         path: 'image_income',
-        name: 'ImageIncome',
+        name: '账单',
         component: () => import('../views/Tools/ImageIncome/Index.vue'),
+      },
+      {
+        path: 'image_progress',
+        name: '进度',
+        component: () => import('../views/Tools/ImageProgress/Index.vue'),
       },
     ]
   },

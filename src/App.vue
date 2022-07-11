@@ -2,7 +2,6 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import HelloWorld from './components/HelloWorld.vue'
-import Navbar from './components/Navbar.vue';
 </script>
 
 <template>
@@ -10,7 +9,6 @@ import Navbar from './components/Navbar.vue';
   <HelloWorld msg="Hello Vue 3 + Vite" /> -->
   <!-- <router-view/> -->
   <n-message-provider>
-    <Navbar/>
     <router-view v-slot="{ Component }">
       <transition
         mode="out-in"
@@ -41,7 +39,7 @@ html {
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.25s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .slide-up-enter-from {

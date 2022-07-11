@@ -1,9 +1,12 @@
 <script setup>
-
+import ToolsNavbar from '../../components/ToolsNavbar.vue';
+import IsLogin from '../../utils/IsLogin.vue';
 </script>
 
 <template>
   <div class="container">
+    <IsLogin/>
+    <ToolsNavbar/>
     <router-view/>
   </div>
 </template>
