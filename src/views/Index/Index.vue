@@ -62,7 +62,7 @@ axios.get('https://v1.hitokoto.cn/?c=d&encode=text')
 
 <template>
   <div class="container">
-    <Card class="cards boxShadow" :title="`${user_name} ${greet()}！`">
+    <Card class="cards" :title="`${user_name} ${greet()}！`">
       <!-- <div>今天是你使用 Bottle 的第 1 天</div> -->
       <div style="padding-bottom: 15px;" v-if="user_name==='YuzeTT'">
         <n-space>
@@ -88,7 +88,7 @@ axios.get('https://v1.hitokoto.cn/?c=d&encode=text')
       </div>
       <div>{{ hitokoto }}</div>
     </Card>
-    <Card class="cards boxShadow" title="公告">
+    <Card class="cards" title="公告">
       <div style="display: flex;align-items: center">
         <n-tag :bordered="false" style="margin-right: 15px">
           类型
@@ -114,7 +114,7 @@ axios.get('https://v1.hitokoto.cn/?c=d&encode=text')
       </div>
     </Card>
     <Card
-      class="cards boxShadow"
+      class="cards"
       v-for="(item,i) in bottleConfig.tools"
       :key="i"
       :title="item.title[0]"
@@ -148,12 +148,6 @@ axios.get('https://v1.hitokoto.cn/?c=d&encode=text')
   max-width: 500px;
   margin: 0 auto;
   padding: 15px;
-}
-
-.boxShadow {
-  box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.08),
-  0 3px 6px 0 rgba(0, 0, 0, 0.06),
-  0 5px 12px 4px rgba(0, 0, 0, 0.04);
 }
 
 .cards {

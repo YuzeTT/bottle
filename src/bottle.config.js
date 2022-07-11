@@ -6,12 +6,12 @@ export default {
       list: [
         {
           title: "收益炫耀",
-          path: "/img_income",
+          path: "/image_income",
           state: "info",
         },
         {
           title: "进度炫耀",
-          path: "/img_income",
+          path: "/image_progress",
           state: "coding",
         },
       ],
